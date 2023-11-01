@@ -2,4 +2,4 @@ from prefect import flow
 
 @flow(log_prints=True)
 def buy():
-    print("COMPRADOOOOOO")
+    print("COMPRADOOOOOO 222")

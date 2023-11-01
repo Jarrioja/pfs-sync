@@ -7,40 +7,30 @@ name: pfs-sync
 prefect-version: 2.14.2
 
 # build section allows you to manage and build docker images
-build:
-- prefect_docker.deployments.steps.build_docker_image:
-    id: build_image
-    requires: prefect-docker>=0.3.1
-    image_name: pfs-sync
-    tag: latests
-    dockerfile: auto
+build: null
 
 # push section allows you to manage if and how this project is uploaded to remote locations
-push:
-- prefect_docker.deployments.steps.push_docker_image:
-    requires: prefect-docker>=0.3.1
-    image_name: '{{ build_image.image_name }}'
-    tag: '{{ build_image.tag }}'
+push: null
 
 # pull section allows you to provide instructions for cloning this project in remote locations
 pull:
 - prefect.deployments.steps.git_clone:
-    repository: '{{ repository }}'
-    branch: '{{ branch }}'
-    access_token: null
+    repository: https://github.com/Jarrioja/pfs-sync.git
+    branch: master
 
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
-- name: null
+- name: buy-deployment
   version: null
   tags: []
   description: null
-  schedule: {}
-  flow_name: null
-  entrypoint: null
+  entrypoint: buy.py:buy
   parameters: {}
   work_pool:
-    name: null
+    name: local-process
     work_queue_name: null
-    job_variables:
-      image: '{{ build_image.image }}'
+    job_variables: {}
+  schedule:
+    interval: 60.0
+    anchor_date: '2023-11-01T17:42:46.652177+00:00'
+    timezone: UTC

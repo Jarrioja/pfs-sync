@@ -1,6 +1,7 @@
 # prefect artifacts
 .prefectignore
 pyvenv.cfg
+.prefect
 # python artifacts
 __pycache__/
 *.py[cod]
